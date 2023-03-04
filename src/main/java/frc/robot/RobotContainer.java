@@ -9,11 +9,13 @@ import frc.robot.commands.ArmToHopper;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ControlDrive;
 import frc.robot.commands.ControlExtend;
+import frc.robot.commands.ControlIntake;
 import frc.robot.commands.ControlPivotOne;
 import frc.robot.commands.ControlPivotTwo;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.ArmExtend;
 import frc.robot.subsystems.ArmPivotOne;
 import frc.robot.subsystems.ArmPivotTwo;
@@ -37,6 +39,7 @@ public class RobotContainer {
   public static ArmExtend extend = new ArmExtend();
   public static ArmPivotOne pivotOne = new ArmPivotOne();
   public static ArmPivotTwo pivotTwo = new ArmPivotTwo();
+  public static Intake intake = new Intake();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -71,6 +74,7 @@ public class RobotContainer {
     pivotOne.setDefaultCommand(new ControlPivotOne());
     pivotTwo.setDefaultCommand(new ControlPivotTwo());
     extend.setDefaultCommand(new ControlExtend());
+    intake.setDefaultCommand(new ControlIntake());
 
     JoystickButton aButton = new JoystickButton(OpController, 1);
     aButton.onTrue(new ArmToHopper());

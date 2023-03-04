@@ -34,6 +34,7 @@ public class Robot extends TimedRobot {
     m_robotContainer.pivotOne.home_first_pivot_encoder();
     m_robotContainer.pivotTwo.home_second_pivot_encoder();
     m_robotContainer.extend.home_extend_encoder();
+    m_robotContainer.intake.home_intake_encoder();
 
     // pcmCompressor.enableDigital();
     // pcmCompressor.disable();
