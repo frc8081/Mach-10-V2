@@ -7,11 +7,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class ControlDrive extends CommandBase {
-  /** Creates a new ControlDrive. */
-  public ControlDrive() {
+public class ControlPivotTwo extends CommandBase {
+  /** Creates a new ControlPivotTwo. */
+  public ControlPivotTwo() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.drive);
+    addRequirements(RobotContainer.pivotTwo);
   }
 
   // Called when the command is initially scheduled.
@@ -21,11 +21,17 @@ public class ControlDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double speed = RobotContainer.getLeftY(RobotContainer.driveController);
-    double turn = RobotContainer.getLeftX(RobotContainer.driveController);
-    //add a decimal mutipler to change max speed
-    RobotContainer.drive.arcadeDrive(speed*0.7, turn*0.7);
+    double speed = RobotContainer.getRightY(RobotContainer.OpController);
+  if(RobotContainer.pivotTwo.get_second_pivot_encoder() >= -3.0 && speed>0.0){
+    speed = 0.0;
+  }else if(RobotContainer.pivotTwo.get_second_pivot_encoder() <= -235.0 && speed<0.0){
+    speed = 0.0;
   }
+  RobotContainer.pivotTwo.move_pivot_two(speed*0.5);
+
+  // System.out.println(RobotContainer.pivotTwo.get_second_pivot_encoder());
+  }
+  
 
   // Called once the command ends or is interrupted.
   @Override

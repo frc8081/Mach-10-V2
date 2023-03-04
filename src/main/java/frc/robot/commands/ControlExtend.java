@@ -5,13 +5,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
-public class ControlDrive extends CommandBase {
-  /** Creates a new ControlDrive. */
-  public ControlDrive() {
+public class ControlExtend extends CommandBase {
+  /** Creates a new ControlExtend. */
+  public ControlExtend() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.drive);
+    addRequirements(RobotContainer.extend);
   }
 
   // Called when the command is initially scheduled.
@@ -21,11 +22,16 @@ public class ControlDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double speed = RobotContainer.getLeftY(RobotContainer.driveController);
-    double turn = RobotContainer.getLeftX(RobotContainer.driveController);
-    //add a decimal mutipler to change max speed
-    RobotContainer.drive.arcadeDrive(speed*0.7, turn*0.7);
-  }
+    double speed = RobotContainer.getRightX(RobotContainer.OpController);
+    if(RobotContainer.extend.get_extend_encoder() <= -114.0 && speed<0.0){
+      speed = 0.0;
+    }else if(RobotContainer.extend.get_extend_encoder() >= -4.0 && speed>0.0){
+      speed = 0.0;
+    }
+    RobotContainer.extend.extend(speed*0.6);
+
+  // System.out.println(RobotContainer.extend.get_extend_encoder());
+}
 
   // Called once the command ends or is interrupted.
   @Override
