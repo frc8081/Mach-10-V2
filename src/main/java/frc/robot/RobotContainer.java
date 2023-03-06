@@ -6,19 +6,32 @@ package frc.robot;
 
 import frc.robot.Constants;
 import frc.robot.commands.ArmToHopper;
+import frc.robot.commands.AutoLevel;
 import frc.robot.commands.Autos;
+import frc.robot.commands.CloseHopper;
 import frc.robot.commands.ControlDrive;
 import frc.robot.commands.ControlExtend;
 import frc.robot.commands.ControlIntake;
 import frc.robot.commands.ControlPivotOne;
 import frc.robot.commands.ControlPivotTwo;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.GrabPosition;
+import frc.robot.commands.OmniIn;
+import frc.robot.commands.OmniOut;
+import frc.robot.commands.OpenClaw;
+import frc.robot.commands.OpenHopper;
+import frc.robot.commands.closeClaw;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Gyro;
+import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Slidingomi;
+import frc.robot.subsystems.pneumatics;
 import frc.robot.subsystems.ArmExtend;
 import frc.robot.subsystems.ArmPivotOne;
 import frc.robot.subsystems.ArmPivotTwo;
+import frc.robot.subsystems.Claw;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -40,6 +53,11 @@ public class RobotContainer {
   public static ArmPivotOne pivotOne = new ArmPivotOne();
   public static ArmPivotTwo pivotTwo = new ArmPivotTwo();
   public static Intake intake = new Intake();
+  public static Gyro gyro= new Gyro();
+  public static pneumatics comp = new pneumatics();
+  public static Claw claw = new Claw();
+  public static Hopper hopper = new Hopper();
+  public static Slidingomi omni = new Slidingomi();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -73,12 +91,27 @@ public class RobotContainer {
     drive.setDefaultCommand(new ControlDrive());
     pivotOne.setDefaultCommand(new ControlPivotOne());
     pivotTwo.setDefaultCommand(new ControlPivotTwo());
-    extend.setDefaultCommand(new ControlExtend());
     intake.setDefaultCommand(new ControlIntake());
+    extend.setDefaultCommand(new ControlExtend());
 
-    JoystickButton aButton = new JoystickButton(OpController, 1);
-    aButton.onTrue(new ArmToHopper());
-    aButton.onFalse(new ControlPivotOne());
+    JoystickButton OpaButton = new JoystickButton(OpController, 1);
+    JoystickButton DraButton = new JoystickButton(driveController, 1);
+    JoystickButton DrLbumper = new JoystickButton(driveController, 5);
+    JoystickButton DrRbumper = new JoystickButton(driveController, 6);
+    JoystickButton OpLbumper = new JoystickButton(OpController, 5);
+    JoystickButton OpRbumper = new JoystickButton(OpController, 6);
+    OpaButton.onTrue(new GrabPosition());
+    OpaButton.onFalse(new ControlPivotOne());
+
+    DraButton.toggleOnTrue(new AutoLevel());
+    DraButton.toggleOnFalse(new ControlDrive());
+
+    DrLbumper.onTrue(new OmniIn());
+    DrRbumper.onTrue(new OmniOut());
+
+    OpLbumper.onTrue(new OpenClaw());
+    OpRbumper.onTrue(new closeClaw());
+
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
   }
 

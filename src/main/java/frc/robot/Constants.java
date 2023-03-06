@@ -62,16 +62,16 @@ public final class Constants {
     public static final int ENCODER_VALUE_PER_FOOT = 2440;
 
     //Claw
-    public static final int CLAW_SOLIOND_0 = 0;
+    public static final int CLAW_SOLIOND_0 = 4;
     public static final int CLAW_SOLIOND_1 = 1;
 
     //Hopper
     public static final int HOPPER_SOLIOND_0 = 0;
-    public static final int HOPPER_SOLIOND_1 = 0;
+    public static final int HOPPER_SOLIOND_1 = 5;
 
     //Sliding
-    public static final int SLIDING_SOLIOND_0 = 0;
-    public static final int SLIDING_SOLIOND_1 = 0;
+    public static final int SLIDING_SOLIOND_0 = 2;
+    public static final int SLIDING_SOLIOND_1 = 3;
 }
 
    

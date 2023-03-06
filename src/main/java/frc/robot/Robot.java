@@ -20,7 +20,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
-  Compressor pcmCompressor = new Compressor(PneumaticsModuleType.CTREPCM);
+  // Compressor pcmCompressor = new Compressor(PneumaticsModuleType.CTREPCM);
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -35,6 +35,7 @@ public class Robot extends TimedRobot {
     m_robotContainer.pivotTwo.home_second_pivot_encoder();
     m_robotContainer.extend.home_extend_encoder();
     m_robotContainer.intake.home_intake_encoder();
+    m_robotContainer.gyro.CalibrateGyro();
 
     // pcmCompressor.enableDigital();
     // pcmCompressor.disable();
@@ -53,6 +54,7 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
+    m_robotContainer.comp.PressureControl();
     CommandScheduler.getInstance().run();
   }
 

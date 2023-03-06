@@ -17,20 +17,26 @@ public class ControlExtend extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    System.out.println("I am running");
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     double speed = RobotContainer.getRightX(RobotContainer.OpController);
-    if(RobotContainer.extend.get_extend_encoder() <= -114.0 && speed<0.0){
+    // System.out.println(RobotContainer.extend.get_extend_encoder());
+
+
+    // ADJUSTING LENGTH VALUES MUST CHANGE OF EXTEND ENCODER
+    // change -84 to less negative number if arm comes out to far
+    if(RobotContainer.extend.get_extend_encoder() <= -84.0 && speed<0.0){
       speed = 0.0;
     }else if(RobotContainer.extend.get_extend_encoder() >= -4.0 && speed>0.0){
       speed = 0.0;
     }
     RobotContainer.extend.extend(speed*0.6);
 
-  // System.out.println(RobotContainer.extend.get_extend_encoder());
 }
 
   // Called once the command ends or is interrupted.
